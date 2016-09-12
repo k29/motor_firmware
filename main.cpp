@@ -54,33 +54,29 @@ void startTimer() {
  */
 Rs485Bus cRs485Bus;
 
-
-
 int main(void)
 {
 
 	SysCtlClockSet(SYSCTL_SYSDIV_2_5 | SYSCTL_USE_PLL | SYSCTL_OSC_MAIN | SYSCTL_XTAL_16MHZ); //80 Mhz clock cycle
 
-#ifdef DEBUG	// Set up the serial console to use for displaying messages
-//	InitConsole();
-#endif
-
-//	startTimer();
+	//	startTimer();
 
 #ifdef DEBUG
-//	printf("Current,Target,Speed,Time\n");
-//	printf("Current\n");
+	//	printf("Current,Target,Speed,Time\n");
+	//	printf("Current\n");
 #endif
 
+
+	cRs485Bus.initialise(115200); //initialisation has to go here, cause interrupt to not work if done in constructor
 	cRs485Bus.registerInterrupt(UARTInterruptHandler);
 
 	/*** Init classes, variables ***/
 	is_homing_done = false; //false if not done, true if done
-//	AMSPositionEncoder cAMSPositionEncoder;
+	//	AMSPositionEncoder cAMSPositionEncoder;
 	CUIPositionEncoder cCUIPositionEncoder;
 	//	PID cPID(1, 100, -100, 0.01, 0.0085, 0.000003);//0.0031
-//	PID cPID(50000, 100, -100, 0.014, 0.045, 0);//0.007,d=2.9 @50
-//	PID cPID(50000, 100, -100, 0.015, 0.058, 0.00003);//0.007,d=2.9 @50
+	//	PID cPID(50000, 100, -100, 0.014, 0.045, 0);//0.007,d=2.9 @50
+	//	PID cPID(50000, 100, -100, 0.015, 0.058, 0.00003);//0.007,d=2.9 @50
 	PID cPID(50000, 100, -100, 0.015, 0.058, 0.00003);//0.007,d=2.9 @50
 
 	MotorDriver5015a cMotorDriver5015a;
@@ -88,18 +84,18 @@ int main(void)
 	uint16_t target_position;
 	float speed;
 	uint64_t prevTime = TIME_MICROS; // clock cycles
-//	uint64_t currTime;
+	//	uint64_t currTime;
 	uint64_t count = 0;
 	bool first_time = true;
 	cParams.setTargetPos(8000);
 	int target = 8000;
 	while(1) {
 		if (count == 1000000) {
-//			cParams.setTargetPos(target);
-//			target+=4000;
-//			if (target >= 16384) {
-//				target = 0;
-//			}
+			//			cParams.setTargetPos(target);
+			//			target+=4000;
+			//			if (target >= 16384) {
+			//				target = 0;
+			//			}
 			printf("\nTime=%llu\n", TIME_MICROS - prevTime);
 			while(1){}
 		}
@@ -115,22 +111,22 @@ int main(void)
 			current_position = cCUIPositionEncoder.getPosition();
 			cParams.setCurrentPos(current_position);
 #ifdef DEBUG
-//			printf("%d\n",current_position);
+			//			printf("%d\n",current_position);
 #endif
 			//	 Read the target position from the Params class
 			target_position = cParams.getTargetPos();
-//#ifdef DEBUG
-//			printf("%d,", target_position);
-//#endif
+			//#ifdef DEBUG
+			//			printf("%d,", target_position);
+			//#endif
 
 			// Disable interrupts
-			IntMasterDisable();
+			//			IntMasterDisable();
 
 			// Call PID class main function and get PWM speed as the output
 			speed = cPID.calculate(target_position, current_position);
-//#ifdef DEBUG
-//			printf("%d,", (int)speed);
-//#endif
+			//#ifdef DEBUG
+			//			printf("%d,", (int)speed);
+			//#endif
 			if (speed <= 100 && speed >= -100) { // Speed can be greater than +/-100 if PID fails due to sample time issues
 				count++;
 				float spd = fabsf(speed);
@@ -141,15 +137,15 @@ int main(void)
 				else
 					cMotorDriver5015a.setDirection(MotorDriver5015a::ANTICLOCKWISE);
 
-//				currTime = TIME_MICROS;
-//#ifdef DEBUG
-//			    printf("%llu\n", currTime - prevTime);
-//#endif
-//				prevTime = currTime;
+				//				currTime = TIME_MICROS;
+				//#ifdef DEBUG
+				//			    printf("%llu\n", currTime - prevTime);
+				//#endif
+				//				prevTime = currTime;
 			}
 
 			// Enable Interrupts
-			IntMasterEnable();
+			//			IntMasterEnable();
 			SimpleDelay();
 
 		} else {

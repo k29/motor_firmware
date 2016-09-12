@@ -12,7 +12,6 @@
  */
 
 MotorDriver5015a::MotorDriver5015a() {
-	// TODO Auto-generated constructor stub
 
 	// Init PWM and GPIO for direction out, brake, speed read etc
 	current_speed = 0;

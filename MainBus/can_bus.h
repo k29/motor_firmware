@@ -27,7 +27,7 @@ public:
 	void registerInterrupt(void (*handler)());
 	void enableCAN();
 	void sendData(uint8_t *packet, uint8_t length);
-	void getData(uint8_t *packet, uint8_t length);
+	bool getData(uint8_t *packet, uint8_t length);
 private:
 	void initialise();
 };

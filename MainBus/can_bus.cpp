@@ -13,7 +13,6 @@ CanBus::CanBus() {
 }
 
 CanBus::~CanBus() {
-	// TODO Auto-generated destructor stub
 }
 
 void CanBus::initialise() {
@@ -53,6 +52,6 @@ void CanBus:: sendData(uint8_t *packet, uint8_t length) {
     CANMessageSet(CAN0_BASE, 1, &msg, MSG_OBJ_TYPE_TX);
 }
 
-void CanBus::getData(uint8_t *packet, uint8_t length) {
+bool CanBus::getData(uint8_t *packet, uint8_t length) {
 //	return 0xFF;
 }

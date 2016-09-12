@@ -40,15 +40,15 @@ public:
 	void sendData(uint8_t *packet, uint8_t length);
 	void registerInterrupt(void (*handler)());
 	uint8_t getByte();
-	void getData(uint8_t *packet, uint8_t numBytes);
+	bool getData(uint8_t *packet, uint8_t numBytes);
 	void clearInterrupt();
 	bool charsAvailable();
+	void initialise(uint32_t baud);
+	void initialise();
+
 
 	const uint8_t BROADCAST_ID = 0xFE;
 
-private:
-	void initialise();
-	void initialise(uint32_t baud);
 };
 
 #endif /* MAINBUS_RS485_BUS_H_ */

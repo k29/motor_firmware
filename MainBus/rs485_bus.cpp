@@ -7,12 +7,12 @@
 
 #include "rs485_bus.h"
 
-Rs485Bus::Rs485Bus() {
-	initialise(115200);
+Rs485Bus::Rs485Bus()
+{
 }
 
-Rs485Bus::~Rs485Bus() {
-	// TODO Auto-generated destructor stub
+Rs485Bus::~Rs485Bus()
+{
 }
 
 void Rs485Bus::initialise(uint32_t baud) {
@@ -29,7 +29,7 @@ void Rs485Bus::initialise(uint32_t baud) {
 	GPIOPinConfigure(GPIO_PB0_U1RX);
 	GPIOPinTypeUART(GPIO_PORTB_BASE, GPIO_PIN_0);
 
-//	// Set PB5 as output for TX ENABLE, SW controlled.
+	// Set PB5 as output for TX ENABLE, SW controlled.
 	GPIOPinTypeGPIOOutput(GPIO_PORTB_BASE, GPIO_PIN_5);
 
 	// Configure the UART for given baud rate and 8-N-1 operation.
@@ -63,11 +63,14 @@ uint8_t Rs485Bus::getByte() {
 	return UARTCharGetNonBlocking(UART1_BASE);
 }
 
-void Rs485Bus::getData(uint8_t *packet, uint8_t numBytes) {
+bool Rs485Bus::getData(uint8_t *packet, uint8_t numBytes) {
 	uint8_t i;
 	for(i = 0; i < numBytes; i++) {
 		packet[i] = UARTCharGetNonBlocking(UART1_BASE);
+		if(packet[i] == -1)
+			return false;
 	}
+	return true;
 }
 
 bool Rs485Bus::charsAvailable() {

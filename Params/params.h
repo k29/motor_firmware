@@ -4,13 +4,18 @@
  *  Created on: Jul 31, 2016
  *      Author: Kaustubh
  */
-
 #ifndef PARAMS_PARAMS_H_
 #define PARAMS_PARAMS_H_
 
 #include <stdint.h>
 #include "driverlib/eeprom.h"
 #include "driverlib/sysctl.h"
+
+//TODO:
+//Make a reset function in params, which resets the EEPROM to the factory default
+//Make class variables volatile rather than objects and thus every function
+
+
 
 /*
  * Parameter Address definition
@@ -34,9 +39,7 @@ class Params
 {
 private:
 	volatile uint8_t data[20];
-//	uint8_t id_; // hex from 0x00 to 0x05
-//	uint16_t current_position_; //0-16383
-//	uint16_t target_position_; //0-16383
+
 public:
 
 	// Reads the eeprom params from the eeprom and updates, Call only once when the program starts

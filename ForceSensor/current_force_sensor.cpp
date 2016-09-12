@@ -8,7 +8,6 @@
 #include "current_force_sensor.h"
 
 CurrentForceSensor::CurrentForceSensor() {
-	// TODO Auto-generated constructor stub
 
 	// Initialise ADC for reading current sensor value
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_ADC0);

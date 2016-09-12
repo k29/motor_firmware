@@ -15,7 +15,7 @@ public:
 	MainBus();
 	virtual void sendData(uint8_t *packet, uint8_t length) = 0;
 	virtual void registerInterrupt(void (*handler)()) = 0;
-	virtual void getData(uint8_t *packet, uint8_t length) = 0;
+	virtual bool getData(uint8_t *packet, uint8_t length) = 0;
 	virtual ~MainBus();
 
 private:

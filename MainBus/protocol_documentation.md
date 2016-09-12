@@ -16,7 +16,7 @@ First 2 bytes - **Header** - `0xFF 0xFF`
 
 3rd Byte - **Id** - possible values from `0x00` to `0xFD`, Broadcast ID = `0xFE`
 
-4th Byte - **Length** - Length(in number of bytes) of the whole packet not counting the *Header* and *Id* bytes
+4th Byte - **Length** - Number of bytes to be read after the length. Total length = length + 4 (ff,ff,id,len)
 
 5th Byte - **Instruction** - The instruction for the motor. Can be any of the values mentioned [here](#instructions)
 
