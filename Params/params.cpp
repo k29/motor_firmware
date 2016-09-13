@@ -8,6 +8,10 @@
 #include "params.h"
 
 
+Params::Params()
+{
+}
+
 void Params::refreshParams() volatile
 {
 	SysCtlPeripheralEnable(SYSCTL_PERIPH_EEPROM0);

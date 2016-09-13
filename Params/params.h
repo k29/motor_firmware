@@ -54,6 +54,7 @@ public:
 	uint16_t getCurrentPos() volatile;
 	void setTargetPos(uint16_t) volatile; //returns true if set
 	uint16_t getTargetPos() volatile;
+	Params();
 };
 
 #endif /* PARAMS_PARAMS_H_ */

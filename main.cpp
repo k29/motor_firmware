@@ -53,6 +53,9 @@ void startTimer() {
  * Externed Definitions
  */
 Rs485Bus cRs485Bus;
+volatile Params cParams;
+volatile bool is_homing_done;
+volatile uint64_t TIME_MICROS;
 
 int main(void)
 {

@@ -69,9 +69,9 @@ Programing Style Guide
 #define MAX_ENCODER_COUNT 16384 //0-16383
 #define F_CPU 80000000
 
-volatile bool is_homing_done;
-volatile uint64_t TIME_MICROS;
-volatile Params cParams;
+extern volatile bool is_homing_done;
+extern volatile uint64_t TIME_MICROS;
+extern volatile Params cParams;
 
 extern Rs485Bus cRs485Bus;
 
