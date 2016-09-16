@@ -6,14 +6,8 @@
  */
 
 #include "ring_buffer.h"
+#include <stdio.h>
 
-RingBuffer::RingBuffer() {
-
-}
-
-RingBuffer::~RingBuffer() {
-
-}
 
 
 /***
@@ -97,4 +91,13 @@ void RingBuffer::flush(bool clear){
 uint8_t RingBuffer::increment(uint8_t b){
 	return ((b+1) % (RBUFF_SIZE));
 }
+
+void RingBuffer::printBuff(){
+	for(uint8_t i=0;i<count;i++){
+		printf("%02x ", buff[tail+i]);
+	}
+	printf("\n");
+}
+
+
 

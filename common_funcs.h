@@ -10,13 +10,12 @@
 
 #include "commondef.h"
 
+
 void UARTInterruptHandler(void);
 
-#define HEADER_1_POS 0
-#define HEADER_2_POS 1
-#define ID_POS 2
-#define LENGTH_POS 3
-#define INSTRUCTION_POS 4
+bool checksumValid(uint8_t* packet);
+
+bool isPacketAvailable();
 
 
 

@@ -56,7 +56,7 @@ Programing Style Guide
 
 #include "utils/uartstdio.h"
 
-#include "Encoder/ams_position_encoder.h"
+#include "RingBuffer/ring_buffer.h"
 #include "Encoder/cui_position_encoder.h"
 #include "ForceSensor/current_force_sensor.h"
 #include "MainBus/can_bus.h"
@@ -71,9 +71,16 @@ Programing Style Guide
 
 extern volatile bool is_homing_done;
 extern volatile uint64_t TIME_MICROS;
-extern volatile Params cParams;
 
+extern volatile Params cParams;
 extern Rs485Bus cRs485Bus;
+extern RingBuffer cRingBuffer;
+
+#define HEADER_1_POS 0
+#define HEADER_2_POS 1
+#define ID_POS 2
+#define LENGTH_POS 3
+#define INSTRUCTION_POS 4
 
 
 

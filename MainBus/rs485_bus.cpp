@@ -36,6 +36,8 @@ void Rs485Bus::initialise(uint32_t baud) {
 	UARTConfigSetExpClk(UART1_BASE, SysCtlClockGet(), baud,
 			(UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE |
 					UART_CONFIG_PAR_NONE));
+	UARTEnable(UART1_BASE);
+	UARTFIFODisable(UART1_BASE);
 }
 
 void Rs485Bus::initialise() {

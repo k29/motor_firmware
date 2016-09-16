@@ -53,6 +53,7 @@ void startTimer() {
  * Externed Definitions
  */
 Rs485Bus cRs485Bus;
+RingBuffer cRingBuffer;
 volatile Params cParams;
 volatile bool is_homing_done;
 volatile uint64_t TIME_MICROS;
@@ -72,6 +73,7 @@ int main(void)
 
 	cRs485Bus.initialise(115200); //initialisation has to go here, cause interrupt to not work if done in constructor
 	cRs485Bus.registerInterrupt(UARTInterruptHandler);
+	cRingBuffer.init();
 
 	/*** Init classes, variables ***/
 	is_homing_done = false; //false if not done, true if done
@@ -93,6 +95,11 @@ int main(void)
 	cParams.setTargetPos(8000);
 	int target = 8000;
 	while(1) {
+
+		int co = cRingBuffer.count;
+		cRingBuffer.printBuff();
+		bool val = isPacketAvailable();
+
 		if (count == 1000000) {
 			//			cParams.setTargetPos(target);
 			//			target+=4000;
